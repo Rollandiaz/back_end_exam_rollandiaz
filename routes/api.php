@@ -16,3 +16,16 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'unit'], function() {
+    
+    Route::get('/get-unit', function (){
+    $unitList = DB::table('unit_rumahs')
+                ->select('*')
+                ->from('unit_rumahs')
+                ->get();
+                return response()->json($unitList, 200);
+    });
+    Route::post('/create-new', 'ProductController@CreateUnit');
+    Route::post('/delete-unit', 'ProductController@DeleteUnit');
+});
